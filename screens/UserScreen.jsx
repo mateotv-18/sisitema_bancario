@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet, Text, Button, View, TextInput, TouchableOpacity, Picker } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,45 +11,44 @@ import Banner from '../components/Banner';
 
 
 function UserScreen({ navigation }) {
-  // const [user, setFullUser] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [rol, SetRol] = useState('');
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       user: '',
       rol: '',
-      password: '',
+      password: '',    
     }
   });
-  // const validate = () => {
-  //   if (email == "tv@gmail.com") {
-  //     setPassword("");
-  //     setFullUser("")
-  //     navigation.navigate('Profile', { fullname: fullname })
-  //   }
-  // }
+
+  let users = [
+    { user: 'matiiutv', rol: 'admin', password: 'Elpapasito.123' },
+    { user: 'mery', rol: 'admin', password: 'Elpapasito.123' },
+    { user: 'Leoncios', rol: 'user', password: 'Carabali123+' },
+  ];
+
   const onSubmit = data => {
     console.log(data);
-        if (data.user == "matiiutv") {
-            // setFullUser("");
-            // setPassword("");
-            navigation.navigate('Cuenta', { user: data.user });
-            navigation.navigate('Cuenta', { rol: data.rol });
-          }
+    let userSearch = users.find(user => user.user === data.user && user.rol === data.rol && user.password === data.password);
+    if (userSearch === undefined) {
+      return alert('Usuario contraseña o rol no valido, por favor verificar la información');
+    }
+    navigation.navigate('Cuenta', { user: data.user });
 
   };
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Banner img="bank.webp" />
+    <View style={styles.container}>
+      <Banner img="bank.png" />
+
       <Text style={[styles.texts]}>Usuario:</Text>
       <Controller
         control={control}
         rules={{
           required: true,
-          pattern: /^[A-Za-zÑñáéíóú]+$/i,
+          pattern: /^[a-zA-ZÑñ]*$/,
+          maxLength: 8
         }}
 
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, onBlur, value, } }) => (
           <TextInput
             style={[styles.inputs]}
             placeholder="Ingrese su usuario"
@@ -61,7 +61,8 @@ function UserScreen({ navigation }) {
         name='user'
       />
       {errors.user?.type == "required" && <Text style={{ color: 'red' }}>El nombre es obligatorio</Text>}
-      {errors.user?.type == "pattern" && <Text style={{ color: 'red' }}>El usuario solo debe tener letras y/o espacios</Text>}
+      {errors.user?.type == "pattern" && <Text style={{ color: 'red' }}>El usuario solo debe tener letras sin espacios o caracteres especiales</Text>}
+      {errors.user?.type == "maxLength" && <Text style={{ color: 'red' }}>El usuario no debe contener mas de 8 letras</Text>}
 
       <Text style={styles.texts}> Rol: </Text>
       <Controller
@@ -69,19 +70,21 @@ function UserScreen({ navigation }) {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (         
+        render={({ field: { onChange, onBlur, value, } }) => (
           <TextInput
-          style={[styles.inputs]}
-          placeholder="¿Administrador o usuario?"
-          // onChangeText={value => SetRol(value)}
-          onBlur={onBlur}
-          value={value}
-          onChange={onChange}
-        />
+            style={[styles.inputs]}
+            placeholder="Admin / Usuer"
+            // onChangeText={value => SetRol(value)}
+            onBlur={onBlur}
+            value={value}
+            onChange={onChange}
+
+          />
         )}
         name='rol'
       />
       {errors.rol?.type == "required" && <Text style={{ color: 'red' }}>El Rol es obligatorio</Text>}
+
       <Text style={styles.texts}> Contraseña: </Text>
       <Controller
         control={control}
@@ -107,18 +110,7 @@ function UserScreen({ navigation }) {
 
       <TouchableOpacity
         style={styles.buttons}
-        //onPress={() => navigation.navigate('Settings')}
-        //onPress={validate}  
         onPress={(handleSubmit(onSubmit))}
-
-        // onPress={() => {
-        //   if (user == "matiiutv") {
-        //     setFullUser("");
-        //     setPassword("");
-        //     navigation.navigate('Cuenta', { user: user });
-        //     navigation.navigate('Cuenta', { rol: rol });
-        //   }
-        // }}
       >
         <Text style={styles.textbuttons}>Ingresar</Text>
       </TouchableOpacity>

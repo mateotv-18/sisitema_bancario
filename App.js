@@ -35,8 +35,8 @@ function HomeTabs() {
             />
           )
         }}
-
       />
+      
       <Tab.Screen
         name="Cuenta"
         component={ProfileScreen}
@@ -74,7 +74,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeTabs} options={{ title: 'Sistema Bancario' }} />
+        <Stack.Screen name="Home" component={HomeTabs} options={{ title: 'Banco Vestige' }} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
