@@ -108,7 +108,7 @@ function UserScreen({ navigation }) {
       {errors.password?.type == "pattern" && <Text style={{ color: 'red' }}>La contraseña debe tener entro 8 y 15 caracteres, contener letras mayusculas, numeros y por lo menos un caracter especial</Text>}
 
       <TouchableOpacity
-        style={[styles.buttons, {marginTop: 30}]}
+        style={[styles.buttons, {marginTop: 50, marginBottom: 100}]}
         onPress={(handleSubmit(onSubmit))}
       >
         <Text style={styles.textbuttons}>Ingresar</Text>

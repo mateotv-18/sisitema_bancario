@@ -45,7 +45,7 @@ function ProfileScreen({ route, navigation }) {
         rules={{
           required: true,
           pattern: /^[0-9]/,
-          minLength: 8,
+          minLength: 6,
           maxLength: 10,
 
         }}
@@ -62,8 +62,8 @@ function ProfileScreen({ route, navigation }) {
       />
       {errors.id?.type == "required" && <Text style={{ color: 'red' }}> La identificación es obligatoria </Text>}
       {errors.id?.type == "pattern" && <Text style={{ color: 'red' }}> La identificación solo depe bontener numeros </Text>}
-      {errors.id?.type == "minLength" && <Text style={{ color: 'red' }}>La identificación debe tener de 8 a 10 caracteres</Text>}
-      {errors.id?.type == "maxLength" && <Text style={{ color: 'red' }}>La identificación debe tener de 8 a 10 caracteres</Text>}
+      {errors.id?.type == "minLength" && <Text style={{ color: 'red' }}>La identificación debe tener de 6 a 10 caracteres</Text>}
+      {errors.id?.type == "maxLength" && <Text style={{ color: 'red' }}>La identificación debe tener de 6p a 10 caracteres</Text>}
 
       <Text style={styles.texts}> Nombre del titular: </Text>
       <Controller
@@ -92,9 +92,9 @@ function ProfileScreen({ route, navigation }) {
         control={control}
         render={({ field: { onChange, onBlur } }) => (
           <TextInput
-            style={[styles.inputs, { textAlign: 'center', color: '#505455', letterSpacing: 2, fontWeight: 'bold', }]}           
+            style={[styles.inputs]}           
             onBlur={onBlur}
-            value={random = Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000)}
+            value={Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000)}
             keyboardType={Number}
             onChange={onChange}           
           />
@@ -150,7 +150,7 @@ function ProfileScreen({ route, navigation }) {
       {errors.saldo?.type == "max" && <Text style={{ color: 'red' }}> El saldo maximo es 100000000</Text>}
 
       <TouchableOpacity
-        style={styles.buttons}
+        style={[styles.buttons, { marginBottom:0 }]}
         onPress={(handleSubmit(guardar))}
       >
         <Text style={styles.textbuttons}>Guardar</Text>

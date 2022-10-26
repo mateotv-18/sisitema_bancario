@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: '200px', 
     height: '150px', 
     resizeMode: 'center',
-    marginVertical: 30   
+    marginVertical: 50   
   },
   title: {
     fontWeight: 'bold', 
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     letterSpacing: 1,  
-    
+    borderColor:'#066286', 
+    borderWidth: 3,    
   }
 
 });
