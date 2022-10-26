@@ -32,11 +32,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#097dab',
     minWidth: 200,
     height: 50,
+    borderColor:'#066286', 
+    borderWidth: 3,
   },
   textbuttons: {
     color: 'white',
     textAlign: 'center',
-    lineHeight: 28,
+    lineHeight: 25,
     fontSize: 25,
     fontFamily: "'PT Sans', sans-serif",
   },
@@ -52,7 +54,8 @@ const styles = StyleSheet.create({
   images: {
     width: '200px', 
     height: '150px', 
-    resizeMode: 'center',   
+    resizeMode: 'center',
+    marginVertical: 30   
   },
   title: {
     fontWeight: 'bold', 
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    letterSpacing: 1,
+    letterSpacing: 1,  
     
   }
 

@@ -13,6 +13,7 @@ function ProfileScreen({ route, navigation }) {
     defaultValues: {
       id: '',
       titular: '',
+      numCuenta: '',
       fecha: '',
       saldo: '',
     }
@@ -20,11 +21,18 @@ function ProfileScreen({ route, navigation }) {
 
   const guardar = data => {
     console.log(data);
-    setInfoCliente(cliente => [...cliente, { id: data.id, titular: data.titular, fecha: data.fecha, saldo: data.saldo }]);
-    navigation.navigate('Movimiento', { id: data.id });
-    navigation.navigate('Movimiento', {titular: data.titular});
+    setInfoCliente(cliente => [...cliente, { id: data.id, titular: data.titular, numCuenta: data.numCuenta, fecha: data.fecha, saldo: data.saldo }]);
+    navigation.navigate('Movimiento', { titular: data.titular });
 
   };
+  let data;
+  const buscar = data => {
+    console.log(data);
+    let idSearch = infoCliente.find(id => id.id == id);
+    if (idSearch != undefined) {
+      data.titular = idSearch.titular;
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -64,12 +72,13 @@ function ProfileScreen({ route, navigation }) {
           required: true,
           pattern: /^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$/,
         }}
-        render={({ field: { onChange, onBlur, value, } }) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={[styles.inputs]}
             placeholder="Nombre del titular"
             onBlur={onBlur}
             value={value}
+            keyboardType={Number}
             onChange={onChange}
           />
         )}
@@ -79,10 +88,20 @@ function ProfileScreen({ route, navigation }) {
       {errors.titular?.type == "pattern" && <Text style={{ color: 'red' }}> El nombre del titular solo debe contener letras y/o espacios </Text>}
 
       <Text style={styles.texts}>Nº Cuenta:</Text>
-      <TextInput
-        style={[styles.inputs, { textAlign: 'center', color: '#505455', letterSpacing: 2, fontWeight: 'bold', }]}
-        value={Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000)}
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur } }) => (
+          <TextInput
+            style={[styles.inputs, { textAlign: 'center', color: '#505455', letterSpacing: 2, fontWeight: 'bold', }]}           
+            onBlur={onBlur}
+            value={random = Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000)}
+            keyboardType={Number}
+            onChange={onChange}           
+          />
+        )}
+        name='numCuenta'
       />
+
 
       <Text style={styles.texts}> Fecha: </Text>
       <Controller
@@ -136,8 +155,15 @@ function ProfileScreen({ route, navigation }) {
       >
         <Text style={styles.textbuttons}>Guardar</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.buttons}
+        onPress={(handleSubmit(buscar))}
+      >
+        <Text style={styles.textbuttons}>Buscar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-export default ProfileScreen;
+export { ProfileScreen };

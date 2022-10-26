@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { styles } from '../assets/styles/Styles';
 import { Controller, useForm } from 'react-hook-form';
-import Banner from '../components/Banner';
+import { Banner } from '../components/Banner'
 
 
 
@@ -27,19 +27,18 @@ function UserScreen({ navigation }) {
 
   const onSubmit = data => {
     console.log(data);
-    let userSearch = users.find(user => user.user === data.user && user.rol === data.rol && user.password === data.password);
-    if (userSearch === undefined) {
+    let userSearch = users.find(userSeatch => userSeatch.user === data.user && userSeatch.rol === data.rol.toLowerCase() && userSeatch.password === data.password);
+    if (userSearch === undefined) {       
       return alert('Usuario contraseña o rol no valido, por favor verificar la información');
     }
     navigation.navigate('Cuenta', { user: data.user });
-
+  
   };
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{flex: -1}]}>
       <Banner img="bank.png" />
 
-      <Text style={[styles.texts]}>Usuario:</Text>
+      <Text style={[styles.texts,{marginTop: 30}]}>Usuario:</Text>
       <Controller
         control={control}
         rules={{
@@ -96,7 +95,7 @@ function UserScreen({ navigation }) {
           <TextInput
             style={styles.inputs}
             onBlur={onBlur}
-            placeholder='Elija su contraseña'
+            placeholder='Ingrese su contraseña'
             secureTextEntry={true}
             // onChangeText={value => setPassword(value)}
             onChange={onChange}
@@ -109,7 +108,7 @@ function UserScreen({ navigation }) {
       {errors.password?.type == "pattern" && <Text style={{ color: 'red' }}>La contraseña debe tener entro 8 y 15 caracteres, contener letras mayusculas, numeros y por lo menos un caracter especial</Text>}
 
       <TouchableOpacity
-        style={styles.buttons}
+        style={[styles.buttons, {marginTop: 30}]}
         onPress={(handleSubmit(onSubmit))}
       >
         <Text style={styles.textbuttons}>Ingresar</Text>

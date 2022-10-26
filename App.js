@@ -5,11 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { styles } from './assets/styles/Styles';
 import UserScreen from './screens/UserScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import { ProfileScreen } from './screens/ProfileScreen';
 import AccountScreen from './screens/AccountScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import LoginScreen from './screens/LoginScreen';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 
 const Tab = createBottomTabNavigator();
@@ -55,8 +55,8 @@ function HomeTabs() {
         component={AccountScreen}
         options={{
            tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name='settings'
+            <AntDesign
+              name='idcard'
               color={'gray'}
               size={30}
             />
